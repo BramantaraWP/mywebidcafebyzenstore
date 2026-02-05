@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ZenDonuts | Official Template</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root { --bg-color: #ff85a1; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: white;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .font-bungee { font-family: 'Bungee', cursive; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        nav.scrolled {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+        }
+
+        /* PERFECT CIRCLE WITH SCALE NORMALIZATION */
+        .donut-wrapper {
+            width: min(300px, 60vw);
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+        
+        .donut-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 12px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+            animation: float 6s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .donut-image {
+            width: 100%; /* Disesuaikan supaya tidak ada gap */
+            height: 100%;
+            object-fit: cover;
+            transform: scale(0.95); /* Menyamakan persepsi ukuran objek di dalam circle */
+            transition: transform 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(15px) rotate(2deg); }
+        }
+
+        /* NAVIGATION BUTTONS */
+        .nav-control {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            position: absolute;
+            top: 40%;
+            z-index: 100;
+        }
+        .nav-control:hover { background: white; color: black; transform: scale(1.1); }
+        .control-prev { left: 20px; }
+        .control-next { right: 20px; }
+
+        .bg-text-overlay {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 22vw;
+            font-family: 'Bungee';
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .nav-control { width: 40px; height: 40px; top: 30%; }
+            .control-prev { left: 10px; }
+            .control-next { right: 10px; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- DESKTOP NAVBAR -->
+    <nav id="navbar" class="fixed top-0 w-full z-[1000] px-8 py-6 flex justify-between items-center transition-all duration-500">
+        <div class="text-2xl font-bungee tracking-tighter">ZEN<span class="opacity-20">DONUTS</span></div>
+        <div class="hidden md:flex gap-10 text-[10px] font-bold tracking-[0.4em] uppercase">
+            <a href="#home" class="hover:opacity-50 transition">Home</a>
+            <a href="#menu" class="hover:opacity-50 transition">Menu</a>
+            <a href="#gallery" class="hover:opacity-50 transition">Gallery</a>
+            <a href="#about" class="hover:opacity-50 transition">Founder</a>
+        </div>
+        <button onclick="orderWA('Template Order')" class="hidden md:block bg-white text-black px-8 py-2.5 rounded-full font-bold text-[10px] tracking-widest hover:invert transition active:scale-95">
+            ORDER NOW
+        </button>
+    </nav>
+
+    <!-- MOBILE NAV -->
+    <div style="margin-top: 100px;" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[85%] max-w-[400px] z-[1000] glass px-6 py-3 rounded-[30px] flex justify-around items-center md:hidden">
+        <a href="#home"><i class="fas fa-home opacity-40"></i></a>
+        <a href="#menu"><i class="fas fa-hamburger opacity-40"></i></a>
+        <div class="w-14 h-14 bg-white rounded-full -mt-12 flex items-center justify-center shadow-2xl" onclick="orderWA('Mobile Template')">
+            <i class="fab fa-whatsapp text-black text-2xl"></i>
+        </div>
+        <a href="#gallery"><i class="fas fa-images opacity-40"></i></a>
+        <a href="#about"><i class="fas fa-user opacity-40"></i></a>
+    </div>
+
+    <!-- HERO -->
+    <header style="margin-top: 50px;" id="home" class="min-h-[50dvh] flex flex-col items-center justify-center text-center px-6">
+        <div data-aos="fade-up" data-aos-duration="1200">
+            <span class="text-[10px] tracking-[0.8em] uppercase opacity-40 font-bold mb-4 block">Premium Sweet Delights</span>
+            <h1 class="text-7xl md:text-[10rem] font-bungee leading-[0.85]">ZEN<br>WORLD</h1>
+            <p class="mt-8 text-sm opacity-60 max-w-sm mx-auto font-medium leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        </div>
+    </header>
+
+    <!-- MENU INTERACTIVE -->
+    <section style="margin-top: -80px;" id="menu" class="min-h-[100dvh] py-20 flex items-center relative overflow-hidden">
+        <div class="bg-text-overlay" id="dynamic-label">ZEN</div>
+        
+        <!-- BUTTONS -->
+        <div class="nav-control control-prev glass" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+        <div class="nav-control control-next glass" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Strawberry -->
+                <div class="swiper-slide" data-color="#ff85a1" data-name="PINKY">
+                    <div class="donut-wrapper">
+                        <div class="donut-frame">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800" class="donut-image">
+                        </div>
+                    </div>
+                    <div class="text-center px-8">
+                        <h2 class="text-4xl md:text-8xl font-bungee mb-4">PINKY LOREM</h2>
+                        <p class="opacity-70 text-sm md:text-lg mb-8 max-w-md mx-auto font-semibold">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                        <button style="margin-top: 30px;" onclick="orderWA('Pinky')" class="glass px-12 py-4 rounded-full font-bungee text-[10px] tracking-widest hover:bg-white hover:text-black transition">ADD TO BOX</button>
+                    </div>
+                </div>
+                <!-- Matcha -->
+                <div class="swiper-slide" data-color="#7a9e7e" data-name="MATCHA">
+                    <div class="donut-wrapper">
+                        <div class="donut-frame">
+                            <img src="https://images.unsplash.com/photo-1624353365286-3f8d62daad51?q=80&w=800" class="donut-image">
+                        </div>
+                    </div>
+                    <div class="text-center px-8">
+                        <h2 class="text-4xl md:text-8xl font-bungee mb-4">GREEN ZEN</h2>
+                        <p class="opacity-70 text-sm md:text-lg mb-8 max-w-md mx-auto font-semibold">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                        <button style="margin-top: -30px;" onclick="orderWA('Matcha')" class="glass px-12 py-4 rounded-full font-bungee text-[10px] tracking-widest hover:bg-white hover:text-black transition">ADD TO BOX</button>
+                    </div>
+                </div>
+                <!-- Choco -->
+                <div class="swiper-slide" data-color="#5d4037" data-name="DARK">
+                    <div class="donut-wrapper">
+                        <div class="donut-frame">
+                            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800" class="donut-image">
+                        </div>
+                    </div>
+                    <div class="text-center px-8">
+                        <h2 class="text-4xl md:text-8xl font-bungee mb-4">DARK DREAM</h2>
+                        <p class="opacity-70 text-sm md:text-lg mb-8 max-w-md mx-auto font-semibold">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+                        <button style="margin-top: -30px;" onclick="orderWA('Dark')" class="glass px-12 py-4 rounded-full font-bungee text-[10px] tracking-widest hover:bg-white hover:text-black transition">ADD TO BOX</button>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;" class="swiper-pagination mt-10"></div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-24 px-6 md:px-24">
+        <h2 class="text-5xl md:text-7xl font-bungee mb-12" data-aos="fade-right">GALLERY</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+            <div class="h-64 md:h-[450px] rounded-[3rem] overflow-hidden shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1530648672449-81f6c723e2f1?q=80&w=800" class="w-full h-full object-cover">
+            </div>
+            <div class="h-64 md:h-[450px] rounded-[3rem] overflow-hidden shadow-2xl md:mt-16">
+                <img src="https://images.unsplash.com/photo-1612240498936-65f5101365d2?q=80&w=800" class="w-full h-full object-cover">
+            </div>
+            <div class="h-64 md:h-[450px] rounded-[3rem] overflow-hidden shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?q=80&w=800" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT TEMPLATE -->
+    <section id="about" class="py-24 px-6 md:px-24">
+        <div class="glass p-8 md:p-20 rounded-[4rem] flex flex-col md:flex-row items-center gap-16" data-aos="fade-up">
+            <div class="w-56 h-56 md:w-80 md:h-80 rounded-[3.5rem] overflow-hidden flex-shrink-0 border-8 border-white/10">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" class="w-full h-full object-cover grayscale">
+            </div>
+            <div>
+                <span class="text-[10px] font-bold tracking-widest bg-white/20 px-5 py-1.5 rounded-full uppercase mb-6 inline-block">The Visionary</span>
+                <h2 class="text-4xl md:text-6xl font-bungee mb-6">ZEN FOUNDER</h2>
+                <p class="opacity-60 leading-relaxed text-sm md:text-base mb-10 text-justify">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <div class="flex gap-8">
+                    <a href="#" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-2xl opacity-50 hover:opacity-100 transition"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="margin-top: -200px;" class="py-16 text-center opacity-20 border-t border-white/5">
+        <p class="text-[10px] font-bold tracking-[1em] uppercase">© 2026 ZEN DONUTS OFFICIAL STORE</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        const swiper = new Swiper(".mySwiper", {
+            speed: 1000,
+            loop: true,
+            centeredSlides: true,
+            navigation: {
+                nextEl: "#nextBtn",
+                prevEl: "#prevBtn",
+            },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            on: {
+                slideChange: function () {
+                    const activeSlide = this.slides[this.activeIndex];
+                    if (activeSlide) {
+                        const color = activeSlide.getAttribute('data-color');
+                        const name = activeSlide.getAttribute('data-name');
+                        document.body.style.backgroundColor = color;
+                        document.getElementById('dynamic-label').innerText = name;
+                    }
+                }
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        });
+
+        function orderWA(item) {
+            // Gunakan nomor store dummy atau placeholder
+            window.open(`https://wa.me/6285701867487?text=Hi ZenDonuts! I want to order ${item}.`, '_blank');
+        }
+    </script>
+</body>
+</html>
+
+          
