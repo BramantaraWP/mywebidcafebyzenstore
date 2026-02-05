@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Premium Cafe | Gen X Friendly</title>
+
+    <!-- Tailwind CSS & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #fdfaf5;
+            color: #2c1e1a;
+        }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #3e2723; border-radius: 10px; }
+
+        .menu-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .menu-card:hover {
+            border-left: 4px solid #8d230f;
+            background-color: #fff;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        #location-toast {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <!-- Notification -->
+    <div id="location-toast" class="bg-stone-800 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3">
+        <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+        <span>Lorem ipsum... (Mencari Lokasi)</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-[#3e2723] text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-widest">LOREM CAFE</a>
+            <div class="hidden md:flex space-x-8 font-semibold text-sm uppercase">
+                <a href="#home" class="hover:text-amber-200 transition">Beranda</a>
+                <a href="#menu" class="hover:text-amber-200 transition">Daftar Menu</a>
+                <a href="#gallery" class="hover:text-amber-200 transition">Galeri</a>
+                <a href="#about" class="hover:text-amber-200 transition">Tentang Kami</a>
+                <a href="#location" class="hover:text-amber-200 transition">Lokasi</a>
+            </div>
+            <button class="md:hidden text-2xl" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-[#4e342e] md:hidden px-6 pb-6 pt-2 flex flex-col space-y-4 font-semibold uppercase text-sm">
+            <a href="#home">Beranda</a>
+            <a href="#menu">Daftar Menu</a>
+            <a href="#gallery">Galeri</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#location">Lokasi</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="relative h-[85vh] flex items-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000" class="absolute inset-0 w-full h-full object-cover" alt="Hero Background">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center text-white">
+            <h1 class="text-5xl md:text-7xl mb-6">Lorem Ipsum Dolor</h1>
+            <p class="text-xl md:text-2xl max-w-2xl mx-auto opacity-90 mb-10">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <a href="#menu" class="bg-[#8d230f] hover:bg-[#6d1a0b] text-white px-10 py-4 rounded font-bold text-lg transition-all shadow-xl">
+                LIHAT MENU LENGKAP
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl mb-4">Lorem Menu</h2>
+            <div class="w-24 h-1 bg-[#8d230f] mx-auto"></div>
+            <p class="mt-6 text-stone-500 italic text-lg">"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
+            <!-- Menu Item 1 -->
+            <div class="menu-card p-4 rounded-xl flex items-center gap-6">
+                <img src="https://images.unsplash.com/photo-1541167760496-162955ed8a9f?q=80&w=300" class="w-24 h-24 object-cover rounded-lg shadow-md" alt="Menu 1">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="text-xl font-bold">Lorem Ipsum Latte</h3>
+                        <span class="text-[#8d230f] font-bold">Rp 35k</span>
+                    </div>
+                    <p class="text-sm text-stone-500 mb-3">Duis aute irure dolor in reprehenderit in voluptate.</p>
+                    <button onclick="placeOrder('Lorem Ipsum Latte', '35k')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-bold flex items-center gap-2 transition">
+                        <i class="fab fa-whatsapp"></i> PESAN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 2 -->
+            <div class="menu-card p-4 rounded-xl flex items-center gap-6">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=300" class="w-24 h-24 object-cover rounded-lg shadow-md" alt="Menu 2">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="text-xl font-bold">Dolor Sit Americano</h3>
+                        <span class="text-[#8d230f] font-bold">Rp 28k</span>
+                    </div>
+                    <p class="text-sm text-stone-500 mb-3">Excepteur sint occaecat cupidatat non proident.</p>
+                    <button onclick="placeOrder('Dolor Sit Americano', '28k')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-bold flex items-center gap-2 transition">
+                        <i class="fab fa-whatsapp"></i> PESAN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 3 -->
+            <div class="menu-card p-4 rounded-xl flex items-center gap-6">
+                <img src="https://images.unsplash.com/photo-1513267048331-5611cad82e41?q=80&w=300" class="w-24 h-24 object-cover rounded-lg shadow-md" alt="Menu 3">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="text-xl font-bold">Consectetur Brownie</h3>
+                        <span class="text-[#8d230f] font-bold">Rp 22k</span>
+                    </div>
+                    <p class="text-sm text-stone-500 mb-3">Mollit anim id est laborum sed do eiusmod.</p>
+                    <button onclick="placeOrder('Consectetur Brownie', '22k')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-bold flex items-center gap-2 transition">
+                        <i class="fab fa-whatsapp"></i> PESAN
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 4 -->
+            <div class="menu-card p-4 rounded-xl flex items-center gap-6">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=300" class="w-24 h-24 object-cover rounded-lg shadow-md" alt="Menu 4">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="text-xl font-bold">Adipiscing Toast</h3>
+                        <span class="text-[#8d230f] font-bold">Rp 25k</span>
+                    </div>
+                    <p class="text-sm text-stone-500 mb-3">Ut enim ad minim veniam, quis nostrud.</p>
+                    <button onclick="placeOrder('Adipiscing Toast', '25k')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-1.5 rounded text-sm font-bold flex items-center gap-2 transition">
+                        <i class="fab fa-whatsapp"></i> PESAN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-24 bg-stone-100">
+        <div class="container mx-auto px-6 text-center mb-12">
+            <h2 class="text-4xl mb-4 font-serif">Lorem Gallery</h2>
+            <p class="text-stone-500">Kenyamanan suasana dalam setiap sudut</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 container mx-auto">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600" class="w-full h-64 object-cover rounded-lg shadow" alt="Gallery 1">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=600" class="w-full h-64 object-cover rounded-lg shadow" alt="Gallery 2">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600" class="w-full h-64 object-cover rounded-lg shadow" alt="Gallery 3">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600" class="w-full h-64 object-cover rounded-lg shadow" alt="Gallery 4">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 items-center gap-16">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200" class="rounded-2xl shadow-2xl relative z-10" alt="About Image">
+                <div class="absolute -top-6 -left-6 w-full h-full border-2 border-[#8d230f] rounded-2xl z-0"></div>
+            </div>
+            <div>
+                <h2 class="text-4xl mb-8">Lorem About Us</h2>
+                <div class="space-y-6 text-stone-600 leading-relaxed text-lg">
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Maps -->
+    <section id="location" class="py-24 bg-[#3e2723] text-white">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12">
+            <div class="bg-white/10 p-10 rounded-3xl backdrop-blur-sm">
+                <h2 class="text-3xl mb-8 font-serif">Lorem Location</h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <i class="fas fa-map-marker-alt text-[#8d230f] text-2xl"></i>
+                        <p class="text-lg">Lorem Street No. 45, Ipsum Village, Pekutatan, Jembrana, Bali.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <i class="fas fa-clock text-[#8d230f] text-2xl"></i>
+                        <div>
+                            <p class="font-bold">Jam Operasional:</p>
+                            <p class="opacity-80">Senin - Minggu: 09:00 - 22:00 WITA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-3xl overflow-hidden h-[400px] shadow-2xl">
+                <!-- Google Maps Iframe -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15783.5042!2d114.8150!3d-8.4120!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMjQnNDMuMiJTIDExNMKwNDgnNTQuMCJF!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-[#2c1e1a] border-t border-white/5 text-center text-white/50 text-sm">
+        <div class="container mx-auto px-6">
+            <p class="mb-4">&copy; 2024 LOREM CAFE PREMIUM. All Rights Reserved.</p>
+            <p>Design & Developed by Bro Bramantara - Pekutatan, Bali.</p>
+        </div>
+    </footer>
+
+    <script>
+        const WA_PHONE = "6281338587484";
+
+        function showToast(show) {
+            const toast = document.getElementById('location-toast');
+            toast.style.display = show ? 'flex' : 'none';
+        }
+
+        function placeOrder(menu, price) {
+            showToast(true);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        const lat = pos.coords.latitude;
+                        const lon = pos.coords.longitude;
+                        const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                        showToast(false);
+                        sendToWA(menu, price, lat, lon, mapLink);
+                    },
+                    () => {
+                        showToast(false);
+                        sendToWA(menu, price, "Manual", "Manual", "-");
+                    },
+                    { enableHighAccuracy: true, timeout: 5000 }
+                );
+            } else {
+                showToast(false);
+                sendToWA(menu, price, "Not Supported", "Not Supported", "-");
+            }
+        }
+
+        function sendToWA(item, harga, lat, lon, link) {
+            let locData = link !== "-" 
+                ? `\n📍 *LOKASI PENGIRIMAN:*\nKoordinat: ${lat}, ${lon}\nMaps: ${link}` 
+                : `\n📍 *LOKASI:* (Mohon share lok manual ya admin)`;
+
+            const text = `Halo Admin Lorem Cafe,\n\nSaya mau pesan menu ini:\n-------------------------------\n📦 *Item:* ${item}\n💵 *Harga:* ${harga}\n-------------------------------\n${locData}\n\nTerima kasih!`;
+            
+            window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
+
